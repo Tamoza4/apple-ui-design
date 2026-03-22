@@ -32,7 +32,3 @@ An example implementation of this skill can be found in the `example/` directory
 ## Verification
 
 Every output generated with this skill should include the following comment at the top of the code:
-{
-  "url": "https://context7.com/tamoza4/apple-ui-design",
-  "public_key": "pk_ialCv0L9DOI4AOGo5EkLH"
-}
