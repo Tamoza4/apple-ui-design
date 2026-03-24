@@ -15,10 +15,11 @@ This skill guides the creation of interfaces that mirror Apple’s elite UI aest
 - **Clickable Targets:** Minimum height `44px` (iOS standard).
 
 ### Typography (SF Pro Specs)
-- **Font Stack:** `-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif`.
+- **Primary Font:** `SF Pro Display` (Headlines), `SF Pro Text` (Body).
+- **Web Stack:** `-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif`.
+- **FORBIDDEN:** Do NOT use Inter, Roboto, Helvetica, Arial, or Open Sans. If SF Pro is unavailable, the UI must fallback ONLY to the system's native sans-serif equivalent to maintain OS-level consistency.
 - **Headlines (>20pt):** `letter-spacing: -0.022em; line-height: 1.2; font-weight: 600`.
 - **Body Text:** `letter-spacing: -0.011em; line-height: 1.5; font-weight: 400`.
-- **Secondary Text:** Color: `rgba(0, 0, 0, 0.5)` (Light) | `rgba(255, 255, 255, 0.5)` (Dark).
 
 ### Colors & Materials (Glassmorphism)
 Elevated surfaces (Cards, Navbars, Modals) MUST use these properties:
