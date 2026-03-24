@@ -1,96 +1,68 @@
 ---
 name: apple-ui-design
-description: Generate Apple‑style user interfaces with high precision, defaulting to Light Mode but adaptable to Dark Mode or custom color schemes. Use this skill when the user requests interfaces that mimic Apple’s design language (iOS, macOS, visionOS) – websites, components, dashboards, or applications. Delivers production‑ready code that embodies clarity, deference, and depth, regardless of framework (HTML/CSS, React, Vue, SwiftUI, Flutter, etc.).
-license: Complete terms in LICENSE.txt
+description: Generate high-fidelity Apple-style user interfaces (iOS, macOS, visionOS) with pixel-perfect precision. Implements 8pt grid systems, semantic glassmorphism, and SF Pro typography with exact CSS/SwiftUI constants. Default to Light Mode, adaptable to Dark/Custom schemes.
 ---
 
-This skill guides creation of interfaces that mirror Apple’s elite UI aesthetics with pixel‑perfect accuracy. It defaults to **Light Mode** (crisp, warm‑gray palette) but can adapt to **Dark Mode** or any custom color scheme if explicitly requested by the user. Every output must feel native to Apple’s ecosystem, be fully functional, and follow the rules below.
+This skill guides the creation of interfaces that mirror Apple’s elite UI aesthetics with 100% execution accuracy. It provides concrete technical values (tracking, blur, spring curves) to ensure production-ready code.
 
-## Design Principles
+## 1. Technical Constants (STRICT)
 
-Apple’s design language rests on three pillars:
+### Spacing & Grid (8pt System)
+- **Base Grid:** All margins, paddings, and gaps MUST be multiples of 8px.
+- **Corner Radii:** - Buttons: `12px`
+  - Cards/Modals: `20px`
+  - Small Elements (Badges/Tags): `8px`
+- **Clickable Targets:** Minimum height `44px` (iOS standard).
 
-- **Clarity** – Every element communicates its purpose instantly. Text is legible, icons are unambiguous, layouts breathe.
-- **Deference** – The UI steps back, letting content shine. Motion and translucency serve context, not decoration.
-- **Depth** – Layers, shadows, and blur create a sense of hierarchy and physicality without heaviness.
+### Typography (SF Pro Specs)
+- **Font Stack:** `-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif`.
+- **Headlines (>20pt):** `letter-spacing: -0.022em; line-height: 1.2; font-weight: 600`.
+- **Body Text:** `letter-spacing: -0.011em; line-height: 1.5; font-weight: 400`.
+- **Secondary Text:** Color: `rgba(0, 0, 0, 0.5)` (Light) | `rgba(255, 255, 255, 0.5)` (Dark).
 
-**CRITICAL**: The default palette is Light Mode. If the user requests Dark Mode or custom colors, implement that consistently while preserving the other guidelines (glassmorphism, grid, motion, etc.).
+### Colors & Materials (Glassmorphism)
+Elevated surfaces (Cards, Navbars, Modals) MUST use these properties:
+- **Light Mode Material:**
+  `background: rgba(255, 255, 255, 0.72); backdrop-filter: blur(20px) saturate(180%); border: 0.5px solid rgba(0, 0, 0, 0.1);`
+- **Dark Mode Material:**
+  `background: rgba(28, 28, 30, 0.7); backdrop-filter: blur(20px) saturate(180%); border: 0.5px solid rgba(255, 255, 255, 0.15);`
+- **Accent Color:** `#007AFF` (Light) | `#0A84FF` (Dark).
 
-## Apple UI Guidelines
+### Motion & Physics (iOS Spring)
+- **Standard Transition:** `300ms cubic-bezier(0.25, 0.1, 0.25, 1)`.
+- **Spring Pop (Modals):** `cubic-bezier(0.4, 0, 0.2, 1.4)`.
+- **Interactions:**
+  - Hover: `scale(1.02)` + subtle shadow.
+  - Active (Tap): `scale(0.96)`.
 
-Apply these guidelines using whatever implementation language the user requests (HTML/CSS, React, Vue, SwiftUI, Flutter, etc.). The rules are about *what* to achieve, not *how* to code it in one syntax. Translate technical values (like bezier curves or blur filters) to the equivalent syntax in the requested framework.
+## 2. Component Blueprints
 
-### Spacing – 8pt System
-All major layout dimensions (padding, margin, gaps, element sizes, icon dimensions, border radii) **must be multiples of 8px**:
-- Acceptable: 8px, 16px, 24px, 32px, 40px, 48px, 56px, 64px, etc.
-- Border widths may be 1px or 2px (exempt).
-- Fine visual details like `2px`, `4px`, or `6px` are allowed **only** for micro‑adjustments (e.g., outline offsets, letter‑spacing, small decorative gaps) that do not disrupt the overall grid alignment. Use them sparingly and with intent.
+### Primary Button
+- **Height:** `44px` | **Padding:** `0 24px` | **Radius:** `12px`.
+- **Shadow:** `0 4px 12px rgba(0, 0, 0, 0.1)`.
+- **Focus State:** `outline: none; box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.5);`.
 
-### Colors (Default Light Mode)
-- Backgrounds: nearly white with a slight warmth (e.g., `#fbfbfd`).
-- Surfaces: semi‑transparent layers with backdrop blur (glassmorphism).
-- Borders: translucent, never solid black.
-- Accent: clean blues (`#007aff`) and subtle highlights.
-- Text: high‑contrast grays, never pure black.
+### Search Input
+- **Height:** `36px` | **Background:** `rgba(0, 0, 0, 0.05)` (Light) | `rgba(255, 255, 255, 0.1)` (Dark).
+- **Accessibility:** Ensure contrast ratio of 4.5:1 for placeholder text.
 
-If the user requests **Dark Mode** or a custom palette:
-- Invert the lightness appropriately while maintaining high contrast and translucency.
-- Keep the glassmorphism effect (`backdrop-filter` with semi‑transparent layers).
-- Ensure borders remain subtle (translucent on dark backgrounds).
-- Accent colors can be adjusted (e.g., `#0a84ff` for dark mode), but keep them vibrant and legible.
+### Navigation Bar
+- **Position:** `sticky` or `fixed` at top.
+- **Glass Effect:** Apply the "Material" properties above with `z-index: 1000`.
+- **Bottom Border:** `0.5px solid rgba(0, 0, 0, 0.1)`.
 
-### Typography
-- **Primary fonts**: Use Apple’s system fonts (`SF Pro Display`, `SF Pro Text`, or `-apple-system`). For native frameworks (SwiftUI), use `.system(...)`. For cross‑platform (Flutter), use `CupertinoIcons` and appropriate font families.
-- **Fallback fonts**: Acceptable fallbacks are system fonts like `BlinkMacSystemFont`, `Segoe UI`, or `sans-serif`. **Do not** use imported generic fonts such as Inter, Roboto, Arial, Helvetica, or any Google Fonts unless explicitly requested by the user.
-- Headlines: Apply negative letter‑spacing for large titles (e.g., `-0.02em`) to achieve the signature extended look.
+### Dashboard Layout
+- **Container Gaps:** Exactly `16px` or `24px` (8pt multiples).
+- **Staggered Entrance:** Use `animation-delay` in 50ms increments for cards.
 
-### Depth & Material
-Implement glassmorphism (frosted glass) using backdrop blur on **every elevated surface**:
-- Navbar (fixed)
-- Cards
-- Sheets / modals
-- Any floating container that visually separates from the background (e.g., hero stats, badge overlays)
+## 3. Mandatory Verification Checklist
 
-Use `backdrop-filter: blur(24px) saturate(180%)` or the framework’s native equivalent (e.g., `.background(.ultraThinMaterial)` in SwiftUI, `BackdropFilter` in Flutter). Shadows should be ultra‑subtle – only hint at elevation, never heavy.
+Before outputting code, verify:
+1. **8pt Integrity:** Is every spacing value divisible by 8? (Exempt: 1px borders).
+2. **Typography:** Is negative tracking applied to headlines?
+3. **Glassmorphism:** Does the background have BOTH `rgba` transparency and `backdrop-filter`?
+4. **Motion:** Are transitions using the defined `cubic-bezier` instead of default "ease"?
+5. **Contrast:** Do all interactive elements meet WCAG AA standards?
 
-### Motion & Interactions
-- **Timings**: Fast transitions (200–300ms) with custom easing curves that mimic iOS. Use CSS cubic‑bezier for web, or native animation curves (like `spring()` or `.timingCurve`) for mobile frameworks.
-- **Hover (desktop/web only)**: Slight lift and gentle scale.
-- **Active (press)**: Subtle scale‑down to give physical feedback.
-- **Staggered reveals**:  
-  - Elements **above the fold** (hero section, main title, primary CTA) should have staggered animations that trigger **immediately on page load**, using `animation-delay`.  
-  - Content further down (cards, roster, etc.) may use scroll‑triggered reveals, but should still include staggered delays (via `transition-delay` or `animation-delay`) to create a flowing entrance.
-
-### Components
-Design common elements with these characteristics:
-- Buttons: Fixed height (40–48px), rounded corners (12px), translucent background, subtle border, clear hover/active states.
-- Inputs: Same height and border styling, with a clean focus indicator.
-- Navbar: Fixed to top, glass effect that blurs underlying content.
-
-### Performance & Accessibility
-- Performance: Prefer animations that use `transform` and `opacity`; limit `backdrop-filter` to small, essential areas.
-- Accessibility: Provide visible focus states (e.g., blue ring), ensure color contrast (WCAG AA), support keyboard navigation and screen readers.
-
-## What to Avoid
-- Using third‑party fonts like Inter, Roboto, Helvetica, or Arial in the font stack unless explicitly requested.
-- Solid black borders (`#000000`). Borders must be translucent or light gray (or appropriate for the chosen color scheme).
-- Heavy shadows; keep them subtle and low‑contrast.
-- Over‑use of `backdrop-filter` on large areas; balance visual quality with performance.
-
-## Strict Rules & Verification
-
-Before finalizing any output, you must verify:
-
-1. **8pt Grid** – All major dimensions are multiples of 8px. Only minor fine‑tuning values (2px, 4px, etc.) are allowed if they don't break the grid.
-2. **Color Scheme** – If the user did not specify a scheme, use Light Mode as described. If Dark Mode or custom colors were requested, ensure they are applied consistently and maintain the same translucency/glassmorphism principles.
-3. **Typography** – Uses Apple’s system fonts as the primary; no generic fallbacks (Inter, Roboto, etc.) appear in the font stack unless requested.
-4. **Glassmorphism** – All elevated surfaces (navbar, cards, sheets, modals) use backdrop blur and translucent backgrounds.
-5. **Motion** – Transitions use custom easing (not linear or default ease‑in‑out); staggered reveals are present and trigger appropriately (above‑the‑fold on load, others on scroll).
-6. **Borders** – All borders are translucent or light gray (or appropriate for the color scheme); no solid black borders.
-7. **Accessibility** – Focus states are visible and interactive elements are keyboard‑accessible.
-8. **Staggered Reveals** – Hero section and above‑the‑fold content use staggered animations that trigger immediately on page load, not solely on scroll.
-
-**Verification phrase** (include as a comment appropriate for the language at the top of the code):  
-`Apple UI Design System – Verified: 8pt, glassmorphism, SF fonts, natural motion`
-
-Implement the interface with these rules. Be bold yet restrained – let the content shine, and let Apple’s design language speak through precision and subtlety.
+**Verification phrase (Comment at top):**
+`Apple UI Design System – Verified: 8pt Grid, SF Pro Typography, Material-Depth, Natural Spring Motion`
